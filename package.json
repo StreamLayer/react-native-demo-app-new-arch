@@ -10,10 +10,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native/new-app-screen": "0.81.4",
+    "@theoplayer/react-native-ui": "^0.19.0",
     "react": "19.1.0",
     "react-native": "0.81.4",
-    "@react-native/new-app-screen": "0.81.4",
-    "react-native-safe-area-context": "^5.5.2"
+    "react-native-google-cast": "^4.9.1",
+    "react-native-safe-area-context": "^5.5.2",
+    "react-native-svg": "^15.13.0",
+    "react-native-theoplayer": "^10.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
