@@ -16,6 +16,7 @@
     "react-native": "0.81.4",
     "react-native-google-cast": "^4.9.1",
     "react-native-safe-area-context": "^5.5.2",
+    "react-native-streamlayer-new-arch": "^0.4.14",
     "react-native-svg": "^15.13.0",
     "react-native-theoplayer": "^10.0.0"
   },

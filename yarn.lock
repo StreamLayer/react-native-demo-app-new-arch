@@ -5449,6 +5449,11 @@ react-native-safe-area-context@^5.5.2:
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-5.6.1.tgz#cb4d249ef1a6f7e8fd0cfdfa9764838dffda26b6"
   integrity sha512-/wJE58HLEAkATzhhX1xSr+fostLsK8Q97EfpfMDKo8jlOc1QKESSX/FQrhk7HhQH/2uSaox4Y86sNaI02kteiA==
 
+react-native-streamlayer-new-arch@^0.4.14:
+  version "0.4.14"
+  resolved "https://registry.yarnpkg.com/react-native-streamlayer-new-arch/-/react-native-streamlayer-new-arch-0.4.14.tgz#ddcb3dd5a7aa919ed44fd0a55bdc6d6a924e818f"
+  integrity sha512-HGRGCQnlyYtoFRRIBkGXROJ9juq/6LnhHS7T259AB0KekmxAdXygo3MYnEAf+jrUulLZxx/yeKUr2B19vVDUeA==
+
 react-native-svg@^15.13.0:
   version "15.13.0"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-15.13.0.tgz#5244b03ff6fa4c8ac7c8586d73cf8d1f4f665236"

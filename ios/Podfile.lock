@@ -1843,6 +1843,37 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - react-native-streamlayer (0.4.11):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-jsinspector
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactAppDependencyProvider
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - StreamLayer (= 8.22.165)
+    - Yoga
   - react-native-theoplayer (10.0.0):
     - React-Core
     - THEOplayer-Integration-THEOlive (~> 10.0)
@@ -2410,6 +2441,7 @@ PODS:
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
+  - StreamLayer (8.22.165)
   - THEOplayer-Integration-THEOlive (10.0.1):
     - THEOplayer-Integration-THEOlive/Base (= 10.0.1)
   - THEOplayer-Integration-THEOlive/Base (10.0.1)
@@ -2460,6 +2492,7 @@ DEPENDENCIES:
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
   - react-native-google-cast (from `../node_modules/react-native-google-cast`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-streamlayer (from `../node_modules/react-native-streamlayer-new-arch`)
   - react-native-theoplayer (from `../node_modules/react-native-theoplayer`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-oscompat (from `../node_modules/react-native/ReactCommon/oscompat`)
@@ -2501,6 +2534,7 @@ SPEC REPOS:
     - PromisesObjC
     - Protobuf
     - SocketRocket
+    - StreamLayer
     - THEOplayer-Integration-THEOlive
     - THEOplayerSDK-core
 
@@ -2590,6 +2624,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-google-cast"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-streamlayer:
+    :path: "../node_modules/react-native-streamlayer-new-arch"
   react-native-theoplayer:
     :path: "../node_modules/react-native-theoplayer"
   React-NativeModulesApple:
@@ -2668,7 +2704,7 @@ SPEC CHECKSUMS:
   hermes-engine: 35c763d57c9832d0eef764316ca1c4d043581394
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   Protobuf: 164aea2ae380c3951abdc3e195220c01d17400e0
-  RCT-Folly: 846fda9475e61ec7bcbf8a3fe81edfcaeb090669
+  RCT-Folly: 59ec0ac1f2f39672a0c6e6cecdd39383b764646f
   RCTDeprecation: c0ed3249a97243002615517dff789bf4666cf585
   RCTRequired: 58719f5124f9267b5f9649c08bf23d9aea845b23
   RCTTypeSafety: 4aefa8328ab1f86da273f08517f1f6b343f6c2cc
@@ -2703,6 +2739,7 @@ SPEC CHECKSUMS:
   React-microtasksnativemodule: 44b44a4d3cd6ffb85d928abf741acdc26722de2e
   react-native-google-cast: 85727694aef6365d871f72b3ec1c722c612a1578
   react-native-safe-area-context: 6d8a7b750e496e37bda47c938320bf2c734d441f
+  react-native-streamlayer: 2223c4f34b4fc72e40efbde48c078c9a6717003b
   react-native-theoplayer: 9bf6c56f204002a06b3d4a11809405cca33375e9
   React-NativeModulesApple: b5d18bc109c45c9a1c6b71664991b5cc3adc4e48
   React-oscompat: 93b5535ea7f7dff46aaee4f78309a70979bdde9d
@@ -2736,10 +2773,11 @@ SPEC CHECKSUMS:
   ReactCommon: 00df7b9f859c9d02181844255bb89a8bca544374
   RNSVG: eca4f6bb09bcaf582c4f082f3989a6b8513b3e93
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
+  StreamLayer: 7c3bcc269201775fb7e28c2aa7be437c535d4586
   THEOplayer-Integration-THEOlive: d73dfe57d757f7e281c4e14fd6d031689045c1c3
   THEOplayerSDK-core: 2e620c845abd222266a81f73fc8d31f7c4d306ba
   Yoga: 922d794dce2af9c437f864bf4093abfa7a131adb
 
-PODFILE CHECKSUM: 7f291998e8c6cfd36ff840cd61e234dc62d5a6b4
+PODFILE CHECKSUM: e11bb62f8c11a0a6cccef58a65445894b546f5b3
 
 COCOAPODS: 1.16.2
