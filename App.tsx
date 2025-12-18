@@ -61,17 +61,21 @@ class LBarState {
   }
 }
 
-const Width = Dimensions.get('screen').width;
+const { width } = Dimensions.get('screen');
 
 export default function HomeScreen() {
   const [isPortrait, setPortrait] = useState<boolean>();
   const [player, setPlayer] = useState<THEOplayer | undefined>(undefined);
-  const [lbarState, setLbarState] = useState(new LBarState(0, 0));
   const [events, setEvents] = useState<Array<StreamLayerDemoEvent>>();
   const [currentEventId, setCurrentEventId] = useState<String>();
   const [isInitializedState, setInitializedState] = useState(false);
   const viewRef = useRef<StreamLayerView>(null);
-  const [playerWidth,setPlayerWidth] = useState(Width);
+  const [playerFrame, setPlayerFrame] = useState({
+    x: 0,
+    y: 0,
+    width: width,
+    height: 300,
+  });
 
   function isScreenPortrait(): boolean {
     return Dimensions.get('window').height > Dimensions.get('window').width;
@@ -81,9 +85,11 @@ export default function HomeScreen() {
     const emitter = new NativeEventEmitter(
       NativeModules.StreamLayerViewEventEmitter,
     );
-    emitter.addListener('emitOnLBarStateChanged', event => console.log("onNativeLBarStateChanged", event));
+    emitter.addListener('onNativeLBarStateChanged', event =>
+      console.log('onNativeLBarStateChanged', event),
+    );
     emitter.addListener('onNativeSideBarApplyContainerFrame', ev => {
-      console.log( "React native  sidebar frame event emitter:", ev);
+      console.log('React native  sidebar frame event emitter:', ev);
       onSideBarApplyContainerFrame(ev);
     });
     setPortrait(isScreenPortrait());
@@ -107,18 +113,10 @@ export default function HomeScreen() {
         window.width,
       );
       setPortrait(window.height > window.width);
+      if (window.height > window.width) {
+        setPlayerFrame({ x: 0, y: 0, width: width, height: 300 });
+      }
     });
-
-    return () => subscription?.remove();
-  });
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener(
-      'change',
-      ({ window, screen }) => {
-        setPortrait(window.height > window.width);
-      },
-    );
 
     return () => subscription?.remove();
   });
@@ -129,7 +127,7 @@ export default function HomeScreen() {
         isLoggingEnabled: true,
         theme: 'Green',
         sdkKey:
-          'SDK_API_KEY',
+          '68d91ab86f90aff8ec35b46f5553ad08a5f6a96b34fb7b8a83006292b63dc500',
       });
       checkAuth();
       loadDemoEvents();
@@ -153,7 +151,9 @@ export default function HomeScreen() {
 
   const checkAuth = async () => {
     try {
+      console.log('isAuth:',isUserAuthorized());
       if (!isUserAuthorized()) {
+        console.log('is not authorized');
         await useAnonymousAuth();
       }
     } catch (e) {
@@ -171,18 +171,12 @@ export default function HomeScreen() {
     }
   };
 
-  const playerHeight = isScreenPortrait()
-    ? 300
-    : Dimensions.get('screen').height;
-
   const onRequestStream = (id: string) => {
     createEventSess(id);
   };
 
   const onLBarStateChanged = (slideX: number, slideY: number) => {
     console.log('Lbar state change:', 'slideX', slideX, 'slideY', slideY);
-    setLbarState(new LBarState(slideX, slideY));
-    setPlayerWidth(Width - lbarState.slideX)
   };
 
   const onRequestAudioDucking = (level: number) => {
@@ -205,7 +199,7 @@ export default function HomeScreen() {
       'cornerRadius=',
       cornerRadius,
     );
-    setPlayerWidth(frame.width)
+    setPlayerFrame(frame);
   };
 
   const onSideBarReset = () => {
@@ -229,7 +223,7 @@ export default function HomeScreen() {
         <Pressable
           key={event.id}
           onPress={() => createEventSess(event.id)}
-          style={{ width: Width, marginTop: 0 }}
+          style={{ width: width, marginTop: 0 }}
         >
           <View
             style={{
@@ -349,7 +343,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <View style={{ ...styles.container, backgroundColor: 'lightgrey' }}>
+      <View style={{ ...styles.container, }}>
         {isPortrait && <PortraitView />}
         {isInitializedState ? (
           <StreamLayerView
@@ -365,12 +359,15 @@ export default function HomeScreen() {
             onSideBarReset={onSideBarReset}
             player={streamLayerViewPlayer}
             playerView={
+              // <></>
               <THEOplayerView
                 config={playerConfig}
                 onPlayerReady={onPlayerReady}
                 style={{
-                  width: Dimensions.get('screen').width - lbarState.slideX,
-                  height: playerHeight - lbarState.slideY,
+                  width: playerFrame.width,
+                  height: playerFrame.height,
+                  top: playerFrame.y,
+                  left: playerFrame.x,
                   paddingTop: 0,
                 }}
               >
@@ -408,20 +405,21 @@ function getViewConfig(): StreamLayerViewConfiguration {
       StreamLayerViewNotificationFeature.Custom,
     ),
     isGamesPointsEnabled: true,
-    isGamesPointsStartSide: false,
+    isGamesPointsStartSide: true,
     isLaunchButtonEnabled: true,
-    isMenuAlwaysOpened: false,
+    isMenuAlwaysOpened: true,
     isMenuLabelsVisible: true,
     isMenuProfileEnabled: true,
     isTooltipsEnabled: true,
     isWatchPartyReturnButtonEnabled: true,
-    isWhoIsWatchingViewEnabled: false,
+    isWhoIsWatchingViewEnabled: true,
     isOverlayExpandable: true,
     overlayHeightSpace: 300,
     overlayWidth: 0,
     enableAllNotificationsAndroid: true,
-    overlayLandscapeMode: StreamLayerViewOverlayLandscapeMode.Lbar,
+    overlayLandscapeMode: StreamLayerViewOverlayLandscapeMode.Start,
     isSideBarForcingEnabled: true,
+    isChatFeatureEnable:true
   };
 }
 

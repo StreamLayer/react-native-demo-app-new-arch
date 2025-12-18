@@ -49,5 +49,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+        <string>Reason for needing camera access</string>
+
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>Reason for needing photo library access</string>
+
+        <key>NSContactsUsageDescription</key>
+        <string>Reason for needing contacts access</string>
+
+        <key>NSMicrophoneUsageDescription</key>
+        <string>Reason for needing microphone access</string>
+        <key>ITSAppUsesNonExemptEncryption</key>
+            <false/>
 </dict>
 </plist>
