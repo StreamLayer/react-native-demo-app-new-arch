@@ -115,6 +115,13 @@ export default function HomeScreen() {
       setPortrait(window.height > window.width);
       if (window.height > window.width) {
         setPlayerFrame({ x: 0, y: 0, width: width, height: 300 });
+      } else {
+        setPlayerFrame({
+          x: 0,
+          y: 0,
+          width: window.width,
+          height: window.height,
+        });
       }
     });
 
@@ -151,7 +158,7 @@ export default function HomeScreen() {
 
   const checkAuth = async () => {
     try {
-      console.log('isAuth:',isUserAuthorized());
+      console.log('isAuth:', isUserAuthorized());
       if (!isUserAuthorized()) {
         console.log('is not authorized');
         await useAnonymousAuth();
@@ -162,6 +169,7 @@ export default function HomeScreen() {
   };
 
   const createEventSess = async (id: string) => {
+    console.log('event id:',id);
     try {
       await createEventSession(id);
       console.log(`Created a new event with id ${id}`);
@@ -342,51 +350,50 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <View style={{ ...styles.container, }}>
+    <SafeAreaView style={styles.container}>
+      <View style={{ ...styles.container }}>
         {isPortrait && <PortraitView />}
         {isInitializedState ? (
-          <StreamLayerView
-            style={StyleSheet.absoluteFillObject}
-            config={viewConfig}
-            ref={viewRef}
-            applyWindowInsets={false}
-            onRequestStream={onRequestStream}
-            onLBarStateChanged={onLBarStateChanged}
-            onRequestAudioDucking={onRequestAudioDucking}
-            onDisableAudioDucking={onDisableAudioDucking}
-            onSideBarApplyContainerFrame={onSideBarApplyContainerFrame}
-            onSideBarReset={onSideBarReset}
-            player={streamLayerViewPlayer}
-            playerView={
-              // <></>
-              <THEOplayerView
-                config={playerConfig}
-                onPlayerReady={onPlayerReady}
-                style={{
-                  width: playerFrame.width,
-                  height: playerFrame.height,
-                  top: playerFrame.y,
-                  left: playerFrame.x,
-                  paddingTop: 0,
-                }}
-              >
-                {player !== undefined && (
-                  <UiContainer
-                    theme={DEFAULT_THEOPLAYER_THEME}
-                    player={player}
-                    center={
-                      <CenteredControlBar
-                        left={<SkipButton skip={-10} />}
-                        middle={<PlayButton />}
-                        right={<SkipButton skip={10} />}
-                      />
-                    }
-                  />
-                )}
-              </THEOplayerView>
-            }
-          />
+          <View style={{ flex:1, borderWidth: 1, borderColor: 'red', }}>
+            <THEOplayerView
+              config={playerConfig}
+              onPlayerReady={onPlayerReady}
+              style={{
+                width: playerFrame.width,
+                height: playerFrame.height,
+                top: playerFrame.y,
+                left: playerFrame.x,
+                paddingTop: 0,
+              }}
+            >
+              {player !== undefined && (
+                <UiContainer
+                  theme={DEFAULT_THEOPLAYER_THEME}
+                  player={player}
+                  center={
+                    <CenteredControlBar
+                      left={<SkipButton skip={-10} />}
+                      middle={<PlayButton />}
+                      right={<SkipButton skip={10} />}
+                    />
+                  }
+                />
+              )}
+            </THEOplayerView>
+            <StreamLayerView
+              style={[StyleSheet.absoluteFillObject]}
+              config={viewConfig}
+              ref={viewRef}
+              applyWindowInsets={false}
+              onRequestStream={onRequestStream}
+              onLBarStateChanged={onLBarStateChanged}
+              onRequestAudioDucking={onRequestAudioDucking}
+              onDisableAudioDucking={onDisableAudioDucking}
+              onSideBarApplyContainerFrame={onSideBarApplyContainerFrame}
+              onSideBarReset={onSideBarReset}
+              player={streamLayerViewPlayer}
+            />
+          </View>
         ) : (
           <View style={{ flex: 1, backgroundColor: 'green' }} />
         )}
@@ -406,7 +413,7 @@ function getViewConfig(): StreamLayerViewConfiguration {
     ),
     isGamesPointsEnabled: true,
     isGamesPointsStartSide: true,
-    isLaunchButtonEnabled: true,
+    isLaunchButtonEnabled: false,
     isMenuAlwaysOpened: true,
     isMenuLabelsVisible: true,
     isMenuProfileEnabled: true,
@@ -419,7 +426,7 @@ function getViewConfig(): StreamLayerViewConfiguration {
     enableAllNotificationsAndroid: true,
     overlayLandscapeMode: StreamLayerViewOverlayLandscapeMode.Start,
     isSideBarForcingEnabled: true,
-    isChatFeatureEnable:true
+    isChatFeatureEnable: true,
   };
 }
 

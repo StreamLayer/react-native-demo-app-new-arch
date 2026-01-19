@@ -1870,7 +1870,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - SocketRocket
-    - StreamLayer (= 8.22.168)
+    - StreamLayer (= 8.22.172)
     - Yoga
   - react-native-theoplayer (10.6.0):
     - React-Core
@@ -2439,11 +2439,11 @@ PODS:
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
-  - StreamLayer (8.22.168)
-  - THEOplayer-Integration-THEOlive (10.6.1):
-    - THEOplayer-Integration-THEOlive/Base (= 10.6.1)
-  - THEOplayer-Integration-THEOlive/Base (10.6.1)
-  - THEOplayerSDK-core (10.6.1)
+  - StreamLayer (8.22.172)
+  - THEOplayer-Integration-THEOlive (10.8.0):
+    - THEOplayer-Integration-THEOlive/Base (= 10.8.0)
+  - THEOplayer-Integration-THEOlive/Base (10.8.0)
+  - THEOplayerSDK-core (10.8.0)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -2735,7 +2735,7 @@ SPEC CHECKSUMS:
   React-microtasksnativemodule: 44b44a4d3cd6ffb85d928abf741acdc26722de2e
   react-native-google-cast: 85727694aef6365d871f72b3ec1c722c612a1578
   react-native-safe-area-context: 6d8a7b750e496e37bda47c938320bf2c734d441f
-  react-native-streamlayer: c1b5b807f842530c32efd7ccb884873ca9946a91
+  react-native-streamlayer: a890ac0899cb8288a31cecce062e076f33ee976c
   react-native-theoplayer: c852ae752b86baea6e46d21e0935655a554661a4
   React-NativeModulesApple: b5d18bc109c45c9a1c6b71664991b5cc3adc4e48
   React-oscompat: 93b5535ea7f7dff46aaee4f78309a70979bdde9d
@@ -2769,11 +2769,11 @@ SPEC CHECKSUMS:
   ReactCommon: 00df7b9f859c9d02181844255bb89a8bca544374
   RNSVG: 046b3f72f0ddbe895a88cdd3bfc3b19822c9efab
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  StreamLayer: 30488adafb46ef6f9fcb49feb6c174b4188930b4
-  THEOplayer-Integration-THEOlive: 023912fcdb33192932b2a5bb26363df2e17b3f02
-  THEOplayerSDK-core: 5331b9658212e828ad8264f0fd6dc1d17c07dae4
+  StreamLayer: 66a300ee6fba11bfa0c13d4a8568e327f747cefc
+  THEOplayer-Integration-THEOlive: be000ad3f0032198d70221408d7fc52dec0915d6
+  THEOplayerSDK-core: 91ab7c57556a0dce70050df3bbfec000e776c58c
   Yoga: a3ed390a19db0459bd6839823a6ac6d9c6db198d
 
-PODFILE CHECKSUM: e11bb62f8c11a0a6cccef58a65445894b546f5b3
+PODFILE CHECKSUM: 5189df04a09ab50a2b5f33ce5c48cf857183187b
 
 COCOAPODS: 1.16.2
