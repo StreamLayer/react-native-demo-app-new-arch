@@ -12,6 +12,7 @@ import {
   Image,
   NativeEventEmitter,
   NativeModules,
+  PixelRatio,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -201,13 +202,21 @@ export default function HomeScreen() {
     frame: { x: number; y: number; width: number; height: number };
     cornerRadius: number;
   }) => {
+    const ratio = PixelRatio.get();
+    const frameDp = {
+      x: frame.x / ratio,
+      y: frame.y / ratio,
+      width: frame.width / ratio,
+      height: frame.height / ratio,
+    };
+    const cornerRadiusDp = cornerRadius / ratio;
     console.log(
       'onSideBarApplyContainerFrame react native method side',
-      frame,
+      frameDp,
       'cornerRadius=',
-      cornerRadius,
+      cornerRadiusDp,
     );
-    setPlayerFrame(frame);
+    setPlayerFrame(frameDp);
   };
 
   const onSideBarReset = () => {
@@ -380,19 +389,23 @@ export default function HomeScreen() {
                 />
               )}
             </THEOplayerView>
-            <StreamLayerView
-              style={[StyleSheet.absoluteFillObject]}
-              config={viewConfig}
-              ref={viewRef}
-              applyWindowInsets={false}
-              onRequestStream={onRequestStream}
-              onLBarStateChanged={onLBarStateChanged}
-              onRequestAudioDucking={onRequestAudioDucking}
-              onDisableAudioDucking={onDisableAudioDucking}
-              onSideBarApplyContainerFrame={onSideBarApplyContainerFrame}
-              onSideBarReset={onSideBarReset}
-              player={streamLayerViewPlayer}
-            />
+              <View style={{borderWidth:1,borderColor:'green',flex:1,zIndex:999}}>
+                  <StreamLayerView
+                      style={[StyleSheet.absoluteFillObject]}
+                      config={viewConfig}
+                      ref={viewRef}
+                      applyWindowInsets={false}
+                      onRequestStream={onRequestStream}
+                      onLBarStateChanged={onLBarStateChanged}
+                      onRequestAudioDucking={onRequestAudioDucking}
+                      onDisableAudioDucking={onDisableAudioDucking}
+                      onSideBarApplyContainerFrame={onSideBarApplyContainerFrame}
+                      onSideBarReset={onSideBarReset}
+                      player={streamLayerViewPlayer}
+                  />
+              </View>
+
+
           </View>
         ) : (
           <View style={{ flex: 1, backgroundColor: 'green' }} />
