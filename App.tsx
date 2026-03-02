@@ -52,23 +52,13 @@ import { SOURCES } from './custom/SourceMenuButton';
 
 type StreamLayerDemoEvent = any;
 
-class LBarState {
-  slideX: number;
-  slideY: number;
-
-  constructor(slideX: number, slideY: number) {
-    this.slideX = slideX;
-    this.slideY = slideY;
-  }
-}
-
 const { width } = Dimensions.get('screen');
 
 export default function HomeScreen() {
   const [isPortrait, setPortrait] = useState<boolean>();
   const [player, setPlayer] = useState<THEOplayer | undefined>(undefined);
   const [events, setEvents] = useState<Array<StreamLayerDemoEvent>>();
-  const [currentEventId, setCurrentEventId] = useState<String>();
+  const [currentEventId, setCurrentEventId] = useState<string>();
   const [isInitializedState, setInitializedState] = useState(false);
   const viewRef = useRef<StreamLayerView>(null);
   const [playerFrame, setPlayerFrame] = useState({
@@ -233,7 +223,7 @@ export default function HomeScreen() {
 
   const viewConfig = getViewConfig();
 
-  var scrollItems = new Array<any>();
+  const scrollItems: JSX.Element[] = [];
   if (events !== undefined && isPortrait) {
     events.forEach(event => {
       scrollItems.push(
@@ -319,7 +309,7 @@ export default function HomeScreen() {
     };
   };
 
-  var currentEvent: StreamLayerDemoEvent | undefined;
+  let currentEvent: StreamLayerDemoEvent | undefined;
   if (events !== undefined && currentEventId !== undefined) {
     currentEvent = events.find(event => {
       return event.id == currentEventId;
