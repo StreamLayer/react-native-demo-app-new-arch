@@ -61,6 +61,7 @@ export default function HomeScreen() {
   const [currentEventId, setCurrentEventId] = useState<string>();
   const [isInitializedState, setInitializedState] = useState(false);
   const viewRef = useRef<StreamLayerView>(null);
+  const isPortraitRef = useRef<boolean>(isScreenPortrait());
   const [playerFrame, setPlayerFrame] = useState({
     x: 0,
     y: 0,
@@ -103,8 +104,10 @@ export default function HomeScreen() {
         'screen width:',
         window.width,
       );
-      setPortrait(window.height > window.width);
-      if (window.height > window.width) {
+      const portrait = window.height > window.width;
+      setPortrait(portrait);
+      isPortraitRef.current = portrait;
+      if (portrait) {
         setPlayerFrame({ x: 0, y: 0, width: width, height: 300 });
       } else {
         setPlayerFrame({
@@ -206,11 +209,37 @@ export default function HomeScreen() {
       'cornerRadius=',
       cornerRadiusDp,
     );
+
+    // Guard against stale frames fired during orientation transition:
+    // reject frames with zero/negative dimensions or frames whose dimensions
+    // exceed the current screen bounds in the wrong axis (portrait frame in landscape).
+    const currentWindow = Dimensions.get('window');
+    const isCurrentlyPortrait = isPortraitRef.current;
+    const frameIsPortraitSized = frameDp.height > frameDp.width;
+    if (frameDp.width <= 0 || frameDp.height <= 0) {
+      console.log('onSideBarApplyContainerFrame: ignoring invalid frame', frameDp);
+      return;
+    }
+    if (isCurrentlyPortrait !== frameIsPortraitSized) {
+      console.log('onSideBarApplyContainerFrame: ignoring stale frame from previous orientation', frameDp);
+      return;
+    }
+    if (frameDp.width > currentWindow.width || frameDp.height > currentWindow.height) {
+      console.log('onSideBarApplyContainerFrame: ignoring frame exceeding screen bounds', frameDp);
+      return;
+    }
+
     setPlayerFrame(frameDp);
   };
 
   const onSideBarReset = () => {
     console.log('onSideBarReset');
+    const window = Dimensions.get('window');
+    if (window.height > window.width) {
+      setPlayerFrame({ x: 0, y: 0, width: width, height: 300 });
+    } else {
+      setPlayerFrame({ x: 0, y: 0, width: window.width, height: window.height });
+    }
   };
 
   const streamLayerViewPlayer = {
@@ -379,7 +408,7 @@ export default function HomeScreen() {
                 />
               )}
             </THEOplayerView>
-              <View style={{borderWidth:1,borderColor:'green',flex:1,zIndex:999}}>
+              <View style={{borderWidth:1,borderColor:'green',flex:1,zIndex:999}} pointerEvents="box-none">
                   <StreamLayerView
                       style={[StyleSheet.absoluteFillObject]}
                       config={viewConfig}
