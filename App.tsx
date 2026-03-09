@@ -382,7 +382,7 @@ export default function HomeScreen() {
       <View style={{ ...styles.container }}>
         {isPortrait && <PortraitView />}
         {isInitializedState ? (
-          <View style={{ flex:1, borderWidth: 1, borderColor: 'red', }}>
+          <View style={{ flex:1, }}>
             <THEOplayerView
               config={playerConfig}
               onPlayerReady={onPlayerReady}
@@ -408,7 +408,7 @@ export default function HomeScreen() {
                 />
               )}
             </THEOplayerView>
-              <View style={{borderWidth:1,borderColor:'green',flex:1,zIndex:999}} pointerEvents="box-none">
+              <View style={{flex:1}} pointerEvents="box-none">
                   <StreamLayerView
                       style={[StyleSheet.absoluteFillObject]}
                       config={viewConfig}
