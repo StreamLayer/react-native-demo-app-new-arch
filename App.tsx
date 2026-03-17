@@ -163,7 +163,7 @@ export default function HomeScreen() {
   };
 
   const createEventSess = async (id: string) => {
-    console.log('event id:',id);
+    console.log('event id:', id);
     try {
       await createEventSession(id);
       console.log(`Created a new event with id ${id}`);
@@ -195,14 +195,13 @@ export default function HomeScreen() {
     frame: { x: number; y: number; width: number; height: number };
     cornerRadius: number;
   }) => {
-    const ratio = PixelRatio.get();
     const frameDp = {
-      x: frame.x / ratio,
-      y: frame.y / ratio,
-      width: frame.width / ratio,
-      height: frame.height / ratio,
+      x: frame.x,
+      y: frame.y,
+      width: frame.width,
+      height: frame.height,
     };
-    const cornerRadiusDp = cornerRadius / ratio;
+    const cornerRadiusDp = cornerRadius;
     console.log(
       'onSideBarApplyContainerFrame react native method side',
       frameDp,
@@ -217,15 +216,27 @@ export default function HomeScreen() {
     const isCurrentlyPortrait = isPortraitRef.current;
     const frameIsPortraitSized = frameDp.height > frameDp.width;
     if (frameDp.width <= 0 || frameDp.height <= 0) {
-      console.log('onSideBarApplyContainerFrame: ignoring invalid frame', frameDp);
+      console.log(
+        'onSideBarApplyContainerFrame: ignoring invalid frame',
+        frameDp,
+      );
       return;
     }
     if (isCurrentlyPortrait !== frameIsPortraitSized) {
-      console.log('onSideBarApplyContainerFrame: ignoring stale frame from previous orientation', frameDp);
+      console.log(
+        'onSideBarApplyContainerFrame: ignoring stale frame from previous orientation',
+        frameDp,
+      );
       return;
     }
-    if (frameDp.width > currentWindow.width || frameDp.height > currentWindow.height) {
-      console.log('onSideBarApplyContainerFrame: ignoring frame exceeding screen bounds', frameDp);
+    if (
+      frameDp.width > currentWindow.width ||
+      frameDp.height > currentWindow.height
+    ) {
+      console.log(
+        'onSideBarApplyContainerFrame: ignoring frame exceeding screen bounds',
+        frameDp,
+      );
       return;
     }
 
@@ -238,7 +249,12 @@ export default function HomeScreen() {
     if (window.height > window.width) {
       setPlayerFrame({ x: 0, y: 0, width: width, height: 300 });
     } else {
-      setPlayerFrame({ x: 0, y: 0, width: window.width, height: window.height });
+      setPlayerFrame({
+        x: 0,
+        y: 0,
+        width: window.width,
+        height: window.height,
+      });
     }
   };
 
@@ -378,21 +394,45 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={{ ...styles.container }}>
-        {isPortrait && <PortraitView />}
+    <View style={styles.container}>
+      <View style={styles.container}>
+        {isPortrait && (
+          <SafeAreaView
+            style={StyleSheet.absoluteFill}
+            pointerEvents="box-none"
+          >
+            <PortraitView />
+          </SafeAreaView>
+        )}
         {isInitializedState ? (
-          <View style={{ flex:1, }}>
+          <View style={{ flex: 1 }}>
             <THEOplayerView
               config={playerConfig}
               onPlayerReady={onPlayerReady}
-              style={{
-                width: playerFrame.width,
-                height: playerFrame.height,
-                top: playerFrame.y,
-                left: playerFrame.x,
-                paddingTop: 0,
-              }}
+              style={
+                // isPortrait
+                //   ? {
+                //       width: playerFrame.width,
+                //       height: playerFrame.height,
+                //       top: playerFrame.y,
+                //       left: playerFrame.x,
+                //       paddingTop: 0,
+                //     }
+                //   : {
+                //       position: 'absolute',
+                //       top: 0,
+                //       left: 0,
+                //       width: '100%',
+                //       height: '100%',
+                //     }
+                {
+                  width: playerFrame.width,
+                  height: playerFrame.height,
+                  top: playerFrame.y,
+                  left: playerFrame.x,
+                  paddingTop: 0,
+                }
+              }
             >
               {player !== undefined && (
                 <UiContainer
@@ -408,29 +448,27 @@ export default function HomeScreen() {
                 />
               )}
             </THEOplayerView>
-              <View style={{flex:1}} pointerEvents="box-none">
-                  <StreamLayerView
-                      style={[StyleSheet.absoluteFillObject]}
-                      config={viewConfig}
-                      ref={viewRef}
-                      applyWindowInsets={false}
-                      onRequestStream={onRequestStream}
-                      onLBarStateChanged={onLBarStateChanged}
-                      onRequestAudioDucking={onRequestAudioDucking}
-                      onDisableAudioDucking={onDisableAudioDucking}
-                      onSideBarApplyContainerFrame={onSideBarApplyContainerFrame}
-                      onSideBarReset={onSideBarReset}
-                      player={streamLayerViewPlayer}
-                  />
-              </View>
-
-
+            <View style={{ flex: 1 }} pointerEvents="box-none">
+              <StreamLayerView
+                style={[StyleSheet.absoluteFillObject]}
+                config={viewConfig}
+                ref={viewRef}
+                applyWindowInsets={false}
+                onRequestStream={onRequestStream}
+                onLBarStateChanged={onLBarStateChanged}
+                onRequestAudioDucking={onRequestAudioDucking}
+                onDisableAudioDucking={onDisableAudioDucking}
+                onSideBarApplyContainerFrame={onSideBarApplyContainerFrame}
+                onSideBarReset={onSideBarReset}
+                player={streamLayerViewPlayer}
+              />
+            </View>
           </View>
         ) : (
           <View style={{ flex: 1, backgroundColor: 'green' }} />
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
