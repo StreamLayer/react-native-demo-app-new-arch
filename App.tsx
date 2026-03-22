@@ -12,7 +12,7 @@ import {
   Image,
   NativeEventEmitter,
   NativeModules,
-  PixelRatio,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -52,6 +52,17 @@ import { SOURCES } from './custom/SourceMenuButton';
 
 type StreamLayerDemoEvent = any;
 
+type StreamLayerViewScreenSize = {
+  topMargin: number;
+  bottomMargin: number;
+  startMargin: number;
+  endMargin: number;
+  playerMinWidth: number;
+  playerHeight: number;
+  verticalBias: number;
+  playerCornerRadius: number;
+};
+
 const { width } = Dimensions.get('screen');
 
 export default function HomeScreen() {
@@ -68,6 +79,17 @@ export default function HomeScreen() {
     width: width,
     height: 300,
   });
+  const [screenSizeState, setScreenSizeState] =
+    useState<StreamLayerViewScreenSize>({
+      topMargin: 0,
+      bottomMargin: 0,
+      startMargin: 0,
+      endMargin: 0,
+      playerMinWidth: width,
+      playerHeight: 300,
+      verticalBias: 0,
+      playerCornerRadius: 0,
+    });
 
   function isScreenPortrait(): boolean {
     return Dimensions.get('window').height > Dimensions.get('window').width;
@@ -242,6 +264,9 @@ export default function HomeScreen() {
 
     setPlayerFrame(frameDp);
   };
+  const onScreenSizeChanged = (size: StreamLayerViewScreenSize) => {
+    setScreenSizeState(size);
+  };
 
   const onSideBarReset = () => {
     console.log('onSideBarReset');
@@ -275,32 +300,13 @@ export default function HomeScreen() {
         <Pressable
           key={event.id}
           onPress={() => createEventSess(event.id)}
-          style={{ width: width, marginTop: 0 }}
+          style={styles.eventPressable}
         >
-          <View
-            style={{
-              width: '100%',
-              flexDirection: 'row',
-              height: 70,
-              alignItems: 'center',
-              justifyContent: 'center',
-              alignSelf: 'center',
-              marginTop: 5,
-              borderRadius: 10,
-              borderWidth: 0.3,
-            }}
-          >
+          <View style={styles.eventRow}>
             {event.previewUrl !== undefined && (
-              <View
-                style={{
-                  marginLeft: 120,
-                  height: 50,
-                  flexDirection: 'row',
-                  gap: 20,
-                }}
-              >
+              <View style={styles.eventTextContainer}>
                 <Text
-                  style={{ fontSize: 12 }}
+                  style={styles.eventTitle}
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
@@ -311,17 +317,7 @@ export default function HomeScreen() {
           </View>
 
           {event.previewUrl !== undefined && (
-            <View
-              style={{
-                marginLeft: 10,
-                height: 50,
-                flexDirection: 'row',
-                gap: 20,
-                position: 'absolute',
-                top: 15,
-                left: 10,
-              }}
-            >
+            <View style={styles.eventImageContainer}>
               <Image
                 source={{ uri: event.previewUrl }}
                 style={styles.eventRowImage}
@@ -364,30 +360,27 @@ export default function HomeScreen() {
   const PortraitView = () => {
     return (
       <View
-        style={{
-          height: Dimensions.get('screen').height - 258,
-          marginTop: 298,
-          position: 'absolute',
-          width: Dimensions.get('screen').width,
-          alignItems: 'center',
-          backgroundColor: 'lightgrey',
-        }}
+        style={[
+          styles.portraitContainer,
+          {
+            height: Dimensions.get('screen').height - 258,
+            width: Dimensions.get('screen').width,
+          },
+        ]}
       >
         {currentEvent !== undefined && (
-          <View style={{ width: '100%' }}>
-            <Text style={{ fontSize: 25, marginLeft: 10 }}>
-              {currentEvent.title}
-            </Text>
+          <View style={styles.currentEventContainer}>
+            <Text style={styles.currentEventTitle}>{currentEvent.title}</Text>
           </View>
         )}
         <ScrollView
-          style={{
-            height: Dimensions.get('screen').height - 388,
-            width: '100%',
-          }}
+          style={[
+            styles.portraitScrollView,
+            { height: Dimensions.get('screen').height - 388 },
+          ]}
         >
           {scrollItems}
-          <View style={{ height: 100 }}></View>
+          <View style={styles.scrollViewSpacer} />
         </ScrollView>
       </View>
     );
@@ -405,52 +398,54 @@ export default function HomeScreen() {
           </SafeAreaView>
         )}
         {isInitializedState ? (
-          <View style={{ flex: 1 }}>
-            <THEOplayerView
-              config={playerConfig}
-              onPlayerReady={onPlayerReady}
-              style={
-                // isPortrait
-                //   ? {
-                //       width: playerFrame.width,
-                //       height: playerFrame.height,
-                //       top: playerFrame.y,
-                //       left: playerFrame.x,
-                //       paddingTop: 0,
-                //     }
-                //   : {
-                //       position: 'absolute',
-                //       top: 0,
-                //       left: 0,
-                //       width: '100%',
-                //       height: '100%',
-                //     }
-                {
-                  width: playerFrame.width,
-                  height: playerFrame.height,
-                  top: playerFrame.y,
-                  left: playerFrame.x,
-                  paddingTop: 0,
-                }
-              }
+          <>
+            <View
+              pointerEvents="box-none"
+              style={[
+                styles.playerContainer,
+                Platform.OS === 'android'
+                  ? {
+                      width: screenSizeState.playerMinWidth,
+                      height: screenSizeState.playerHeight,
+                      top: screenSizeState.topMargin,
+                      left: screenSizeState.startMargin,
+                    }
+                  : {
+                      width: playerFrame.width,
+                      height: playerFrame.height,
+                      top: playerFrame.y,
+                      left: playerFrame.x,
+                    },
+              ]}
             >
-              {player !== undefined && (
-                <UiContainer
-                  theme={DEFAULT_THEOPLAYER_THEME}
-                  player={player}
-                  center={
-                    <CenteredControlBar
-                      left={<SkipButton skip={-10} />}
-                      middle={<PlayButton />}
-                      right={<SkipButton skip={10} />}
-                    />
-                  }
-                />
-              )}
-            </THEOplayerView>
-            <View style={{ flex: 1 }} pointerEvents="box-none">
+              <THEOplayerView
+                config={playerConfig}
+                onPlayerReady={onPlayerReady}
+              >
+                {player !== undefined && (
+                  <UiContainer
+                    theme={DEFAULT_THEOPLAYER_THEME}
+                    player={player}
+                    center={
+                      <CenteredControlBar
+                        left={<SkipButton skip={-10} />}
+                        middle={<PlayButton />}
+                        right={<SkipButton skip={10} />}
+                      />
+                    }
+                  />
+                )}
+              </THEOplayerView>
+            </View>
+            <View
+              style={[
+                isPortrait
+                  ? styles.streamLayerPortraitWrapper
+                  : StyleSheet.absoluteFill,
+              ]}
+            >
               <StreamLayerView
-                style={[StyleSheet.absoluteFillObject]}
+                style={[StyleSheet.absoluteFill]}
                 config={viewConfig}
                 ref={viewRef}
                 applyWindowInsets={false}
@@ -459,13 +454,14 @@ export default function HomeScreen() {
                 onRequestAudioDucking={onRequestAudioDucking}
                 onDisableAudioDucking={onDisableAudioDucking}
                 onSideBarApplyContainerFrame={onSideBarApplyContainerFrame}
+                onScreenSizeChanged={onScreenSizeChanged} 
                 onSideBarReset={onSideBarReset}
                 player={streamLayerViewPlayer}
               />
             </View>
-          </View>
+          </>
         ) : (
-          <View style={{ flex: 1, backgroundColor: 'green' }} />
+          <View style={styles.loadingContainer} />
         )}
       </View>
     </View>
@@ -503,6 +499,72 @@ function getViewConfig(): StreamLayerViewConfiguration {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  portraitContainer: {
+    marginTop: 298,
+    position: 'absolute',
+    alignItems: 'center',
+    backgroundColor: 'lightgrey',
+  },
+  currentEventContainer: {
+    width: '100%',
+  },
+  currentEventTitle: {
+    fontSize: 25,
+    marginLeft: 10,
+  },
+  portraitScrollView: {
+    width: '100%',
+  },
+  scrollViewSpacer: {
+    height: 100,
+  },
+  playerContainer: {
+    position: 'absolute',
+  },
+  streamLayerPortraitWrapper: {
+    position: 'absolute',
+    top: 30,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: 'green',
+  },
+  eventPressable: {
+    width: width,
+    marginTop: 0,
+  },
+  eventRow: {
+    width: '100%',
+    flexDirection: 'row',
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginTop: 5,
+    borderRadius: 10,
+    borderWidth: 0.3,
+  },
+  eventTextContainer: {
+    marginLeft: 120,
+    height: 50,
+    flexDirection: 'row',
+    gap: 20,
+  },
+  eventTitle: {
+    fontSize: 12,
+  },
+  eventImageContainer: {
+    marginLeft: 10,
+    height: 50,
+    flexDirection: 'row',
+    gap: 20,
+    position: 'absolute',
+    top: 15,
+    left: 10,
   },
   eventRowImage: {
     width: 100,
