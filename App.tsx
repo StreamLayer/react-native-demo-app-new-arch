@@ -454,7 +454,7 @@ export default function HomeScreen() {
                 onRequestAudioDucking={onRequestAudioDucking}
                 onDisableAudioDucking={onDisableAudioDucking}
                 onSideBarApplyContainerFrame={onSideBarApplyContainerFrame}
-                onScreenSizeChanged={onScreenSizeChanged} 
+                onScreenSizeChanged={onScreenSizeChanged}
                 onSideBarReset={onSideBarReset}
                 player={streamLayerViewPlayer}
               />
