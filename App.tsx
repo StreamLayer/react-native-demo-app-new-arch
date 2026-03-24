@@ -34,7 +34,10 @@ import {
   THEOplayerView,
 } from 'react-native-theoplayer';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 
 import {
   createEventSession,
@@ -71,6 +74,7 @@ export default function HomeScreen() {
   const [events, setEvents] = useState<Array<StreamLayerDemoEvent>>();
   const [currentEventId, setCurrentEventId] = useState<string>();
   const [isInitializedState, setInitializedState] = useState(false);
+  const insets = useSafeAreaInsets();
   const viewRef = useRef<StreamLayerView>(null);
   const isPortraitRef = useRef<boolean>(isScreenPortrait());
   const [playerFrame, setPlayerFrame] = useState({
@@ -440,7 +444,10 @@ export default function HomeScreen() {
             <View
               style={[
                 isPortrait
-                  ? styles.streamLayerPortraitWrapper
+                  ? [
+                      styles.streamLayerPortraitWrapper,
+                      { top: insets.top - 25 },
+                    ]
                   : StyleSheet.absoluteFill,
               ]}
             >
@@ -524,7 +531,6 @@ const styles = StyleSheet.create({
   },
   streamLayerPortraitWrapper: {
     position: 'absolute',
-    top: 30,
     left: 0,
     right: 0,
     bottom: 0,
