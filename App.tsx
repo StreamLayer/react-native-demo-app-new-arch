@@ -444,10 +444,7 @@ export default function HomeScreen() {
             <View
               style={[
                 isPortrait
-                  ? [
-                      styles.streamLayerPortraitWrapper,
-                      { top: insets.top - 25 },
-                    ]
+                  ? [styles.streamLayerPortraitWrapper, { top: insets.top }]
                   : StyleSheet.absoluteFill,
               ]}
             >
