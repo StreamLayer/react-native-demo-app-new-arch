@@ -52,6 +52,7 @@ import {
 } from 'react-native-streamlayer-new-arch';
 
 import { SOURCES } from './custom/SourceMenuButton';
+import { SDK_KEY } from './config';
 
 type StreamLayerDemoEvent = any;
 
@@ -153,8 +154,7 @@ export default function HomeScreen() {
       await initSdk({
         isLoggingEnabled: true,
         theme: 'Green',
-        sdkKey:
-          '68d91ab86f90aff8ec35b46f5553ad08a5f6a96b34fb7b8a83006292b63dc500',
+        sdkKey: SDK_KEY,
       });
       checkAuth();
       loadDemoEvents();
