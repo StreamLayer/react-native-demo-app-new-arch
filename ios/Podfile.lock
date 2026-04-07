@@ -5,13 +5,11 @@ PODS:
   - FBLazyVector (0.81.4)
   - fmt (11.0.2)
   - glog (0.3.5)
-  - google-cast-sdk (4.8.3):
-    - Protobuf (~> 3.13)
+  - google-cast-sdk (4.8.4)
   - hermes-engine (0.81.4):
     - hermes-engine/Pre-built (= 0.81.4)
   - hermes-engine/Pre-built (0.81.4)
   - PromisesObjC (2.4.0)
-  - Protobuf (3.29.5)
   - RCT-Folly (2024.11.18.00):
     - boost
     - DoubleConversion
@@ -1843,7 +1841,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-streamlayer (0.4.11):
+  - react-native-streamlayer (0.5.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -1872,12 +1870,12 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - SocketRocket
-    - StreamLayer (= 8.22.165)
+    - StreamLayer (= 8.22.172)
     - Yoga
-  - react-native-theoplayer (10.0.0):
+  - react-native-theoplayer (10.6.0):
     - React-Core
-    - THEOplayer-Integration-THEOlive (~> 10.0)
-    - THEOplayerSDK-core (~> 10.0)
+    - THEOplayer-Integration-THEOlive (~> 10.5)
+    - THEOplayerSDK-core (~> 10.5)
   - React-NativeModulesApple (0.81.4):
     - boost
     - DoubleConversion
@@ -2383,7 +2381,7 @@ PODS:
     - React-perflogger (= 0.81.4)
     - React-utils (= 0.81.4)
     - SocketRocket
-  - RNSVG (15.13.0):
+  - RNSVG (15.15.1):
     - boost
     - DoubleConversion
     - fast_float
@@ -2409,10 +2407,10 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNSVG/common (= 15.13.0)
+    - RNSVG/common (= 15.15.1)
     - SocketRocket
     - Yoga
-  - RNSVG/common (15.13.0):
+  - RNSVG/common (15.15.1):
     - boost
     - DoubleConversion
     - fast_float
@@ -2441,11 +2439,11 @@ PODS:
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
-  - StreamLayer (8.22.165)
-  - THEOplayer-Integration-THEOlive (10.0.1):
-    - THEOplayer-Integration-THEOlive/Base (= 10.0.1)
-  - THEOplayer-Integration-THEOlive/Base (10.0.1)
-  - THEOplayerSDK-core (10.0.1)
+  - StreamLayer (8.22.172)
+  - THEOplayer-Integration-THEOlive (10.8.0):
+    - THEOplayer-Integration-THEOlive/Base (= 10.8.0)
+  - THEOplayer-Integration-THEOlive/Base (10.8.0)
+  - THEOplayerSDK-core (10.8.0)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -2532,7 +2530,6 @@ SPEC REPOS:
   trunk:
     - google-cast-sdk
     - PromisesObjC
-    - Protobuf
     - SocketRocket
     - StreamLayer
     - THEOplayer-Integration-THEOlive
@@ -2700,10 +2697,9 @@ SPEC CHECKSUMS:
   FBLazyVector: 941bef1c8eeabd9fe1f501e30a5220beee913886
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
-  google-cast-sdk: 1fb6724e94cc5ff23b359176e0cf6360586bb97a
+  google-cast-sdk: 32f65af50d164e3c475e79ad123db3cc26fbcd37
   hermes-engine: 35c763d57c9832d0eef764316ca1c4d043581394
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
-  Protobuf: 164aea2ae380c3951abdc3e195220c01d17400e0
   RCT-Folly: 59ec0ac1f2f39672a0c6e6cecdd39383b764646f
   RCTDeprecation: c0ed3249a97243002615517dff789bf4666cf585
   RCTRequired: 58719f5124f9267b5f9649c08bf23d9aea845b23
@@ -2739,8 +2735,8 @@ SPEC CHECKSUMS:
   React-microtasksnativemodule: 44b44a4d3cd6ffb85d928abf741acdc26722de2e
   react-native-google-cast: 85727694aef6365d871f72b3ec1c722c612a1578
   react-native-safe-area-context: 6d8a7b750e496e37bda47c938320bf2c734d441f
-  react-native-streamlayer: 2223c4f34b4fc72e40efbde48c078c9a6717003b
-  react-native-theoplayer: 9bf6c56f204002a06b3d4a11809405cca33375e9
+  react-native-streamlayer: a890ac0899cb8288a31cecce062e076f33ee976c
+  react-native-theoplayer: c852ae752b86baea6e46d21e0935655a554661a4
   React-NativeModulesApple: b5d18bc109c45c9a1c6b71664991b5cc3adc4e48
   React-oscompat: 93b5535ea7f7dff46aaee4f78309a70979bdde9d
   React-perflogger: a03d913e3205b00aee4128082abe42fd45ce0c98
@@ -2771,13 +2767,13 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: b20fba6c3d091a393925890009999472c8f94d95
   ReactCodegen: 58dc2eb138a27145826ad7d5568610159dfcadee
   ReactCommon: 00df7b9f859c9d02181844255bb89a8bca544374
-  RNSVG: eca4f6bb09bcaf582c4f082f3989a6b8513b3e93
+  RNSVG: 046b3f72f0ddbe895a88cdd3bfc3b19822c9efab
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  StreamLayer: 7c3bcc269201775fb7e28c2aa7be437c535d4586
-  THEOplayer-Integration-THEOlive: d73dfe57d757f7e281c4e14fd6d031689045c1c3
-  THEOplayerSDK-core: 2e620c845abd222266a81f73fc8d31f7c4d306ba
-  Yoga: 922d794dce2af9c437f864bf4093abfa7a131adb
+  StreamLayer: 66a300ee6fba11bfa0c13d4a8568e327f747cefc
+  THEOplayer-Integration-THEOlive: be000ad3f0032198d70221408d7fc52dec0915d6
+  THEOplayerSDK-core: 91ab7c57556a0dce70050df3bbfec000e776c58c
+  Yoga: a3ed390a19db0459bd6839823a6ac6d9c6db198d
 
-PODFILE CHECKSUM: e11bb62f8c11a0a6cccef58a65445894b546f5b3
+PODFILE CHECKSUM: 5189df04a09ab50a2b5f33ce5c48cf857183187b
 
 COCOAPODS: 1.16.2
